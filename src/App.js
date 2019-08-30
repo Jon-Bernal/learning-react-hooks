@@ -10,6 +10,9 @@ function App() {
 
   useEffect(() => {
     console.log("render");
+    return () => {
+      // this will unmount the component
+    };
   }, [values.password]); // will now only render when value passed to values.password
 
   return (
