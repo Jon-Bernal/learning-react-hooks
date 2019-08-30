@@ -1,16 +1,32 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+import ObjectInUseState from "./components/ObjectInUseState.js";
+import { useForm } from "./components/customHooks/useForm";
 
 function App() {
-  const [{count, count2}, setCount] = useState({count: 10, count2: 20}); //
+  const [values, handleChange] = useForm({ email: "", password: "" });
 
+  useEffect(() => {
+    console.log("render");
+  }, [values.password]); // will now only render when value passed to values.password
 
   return (
     <div className="App">
-      <button onClick={() => setCount(currentCountState => ({ ...currentCountState, count: currentCountState.count + 1}))}>+</button>
-        <div>count 1: {count}</div>
-        <div>count 2: {count2}</div>
+      <ObjectInUseState />
+      <input
+        name="email"
+        type="text"
+        value={values.email}
+        onChange={handleChange}
+      />
+      <input
+        name="password"
+        type="password"
+        value={values.password}
+        onChange={handleChange}
+      />
     </div>
   );
 }
